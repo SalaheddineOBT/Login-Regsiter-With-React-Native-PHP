@@ -5,6 +5,8 @@ import {
   Text,
   View,
 } from 'react-native';
+import Home from './Components/Home/HomePage';
+import Login from './Components/Authentification/LoginPage';
 
 const App = () => {
 
@@ -12,6 +14,8 @@ const App = () => {
     <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View>
           <Text>Hello</Text>
+          <Login />
+          <Home />
         </View>
     </ScrollView>
   );
