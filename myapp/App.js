@@ -6,16 +6,15 @@ import {
   View,
 } from 'react-native';
 import Home from './Components/Home/HomePage';
-import Login from './Components/Authentification/LoginPage';
+import LoginPage from './Components/Authentification/LoginPage';
 
 const App = () => {
 
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View>
-          <Text>Hello</Text>
-          <Login />
-          <Home />
+          <LoginPage />
+          {/* <Home /> */}
         </View>
     </ScrollView>
   );
