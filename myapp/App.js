@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import Home from './Components/Home/HomePage';
@@ -12,10 +11,10 @@ const App = () => {
 
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
+        <>
           <LoginPage />
           {/* <Home /> */}
-        </View>
+        </>
     </ScrollView>
   );
 };
