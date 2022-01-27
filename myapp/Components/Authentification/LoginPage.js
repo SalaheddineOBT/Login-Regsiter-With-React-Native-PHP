@@ -1,10 +1,15 @@
 import React,{useState} from 'react';
-import { StyleSheet, Image, Animated,
+import { StyleSheet, Image, Animated,ScrollView,
   Text, TextInput, View, Pressable,
   Alert, TouchableWithoutFeedback,
   Keyboard } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { GlobaleStyles } from '../../Styles/GlobaleStyle';
 
-const LoginPage=()=>{
+const LoginPage=({navigation})=>{
+
+    const [isLog,setIslog]=useState(true);
 
     const SignUp=()=>{
         Alert.alert("OOOPS !","Clickable .....",[
@@ -13,20 +18,27 @@ const LoginPage=()=>{
     };
 
     const SignIn=()=>{
-        Alert.alert("OOOPS !","Clickable ....",[
-            {text:"Yes",onPress:()=>console.log("alert closed !")}
-        ]);
+        // Alert.alert("OOOPS !","Clickable ....",[
+        //     {text:"Yes",onPress:()=>console.log("alert closed !")}
+        // ]);
+        navigation.navigate('Home');
     };
+
+    const logact=(d)=>{
+        setIslog(d);
+    }
 
     return(
         <TouchableWithoutFeedback onPress={()=>{ Keyboard.dismiss() }}>
-            {/* <Register SignUp={SignUp} /> */}
-            <Login SignIn={SignIn} />
+            <View style={styles.contnn}>
+                <Register SignUp={SignUp} logact={logact} />
+                <Login SignIn={SignIn} logact={logact} islog={isLog} />
+            </View>
         </TouchableWithoutFeedback>
     );
 };
 
-const Register=({SignUp})=>{
+const Register=({SignUp,logact})=>{
 
     const [foc1,setfoc1]=useState(false);
     const [foc2,setfoc2]=useState(false);
@@ -90,30 +102,41 @@ const Register=({SignUp})=>{
             </View>
             <View style={styles.cont}>
                 <Pressable style={styles.btn} onPress={()=>SignUp()}>
-                    <Text style={styles.btnText}>Inscription</Text>
+                    <Text style={styles.btnText}>Sign Up</Text>
+                </Pressable>
+            </View>
+            <View style={styles.cont}>
+                <Pressable style={styles.btn} onPress={()=>logact(true)}>
+                    <Text style={styles.btnText}>Sign In</Text>
                 </Pressable>
             </View>
         </View>
     );
 };
 
-const Login=({SignIn})=>{
+const Login=({SignIn,logact,islog})=>{
 
     const [foc1,setfoc1]=useState(false);
     const [foc2,setfoc2]=useState(false);
 
+    const [password,setPassword]=useState("");
+    const [email,setEmail]=useState("");
+
+    const [error,setError]=useState({});
+
     return(
-        <View style={styles.Container}>
+        <View style={islog ? styles.ContainerA : styles.ContainerL}>
             <Text style={styles.title}>Login</Text>
             <View style={styles.box}>
                 <TextInput style={styles.inputs} onChangeText={(v)=>{
+                    setEmail(v);
                     if(v==""){
                         setfoc1(false)
                     }else{
                         setfoc1(true)
                     }
                 }} />
-                <Text style={styles.errors}>Error</Text>
+                <Text style={styles.errors}>{error.email}</Text>
                 <View pointerEvents='none' style={foc1 ? styles.diveActivelbl : styles.divlabl}>
                     <Text style={styles.labl}>Email *</Text>
                 </View>
@@ -121,13 +144,14 @@ const Login=({SignIn})=>{
             </View>
             <View style={styles.box}>
                 <TextInput style={styles.inputs} secureTextEntry onChangeText={(v)=>{
+                    setPassword(v);
                     if(v==""){
                         setfoc2(false)
                     }else{
                         setfoc2(true)
                     }
                 }} />
-                <Text style={styles.errors}>Error</Text>
+                <Text style={styles.errors}>{error.password}</Text>
                 <View pointerEvents='none' style={foc2 ? styles.diveActivelbl : styles.divlabl}>
                     <Text style={styles.labl}>Password *</Text>
                 </View>
@@ -135,7 +159,12 @@ const Login=({SignIn})=>{
             </View>
             <View style={styles.cont}>
                 <Pressable style={styles.btn} onPress={()=>SignIn()}>
-                    <Text style={styles.btnText}>Connexion</Text>
+                    <Text style={styles.btnText}>Sign In</Text>
+                </Pressable>
+            </View>
+            <View style={styles.cont}>
+                <Pressable style={styles.btn} onPress={()=>logact(false)}>
+                    <Text style={styles.btnText}>Sign Up</Text>
                 </Pressable>
             </View>
         </View>
@@ -148,6 +177,7 @@ const styles=StyleSheet.create({
         fontWeight:"800",
         textAlign:"center",
         marginBottom:40,
+        fontFamily:"Overpass-MediumItalic"
     },
     divlabl:{
         position:"absolute",
@@ -178,10 +208,40 @@ const styles=StyleSheet.create({
         marginTop:10,
     },
     errors:{
-        marginBottom:20,
+        marginBottom:10,
         paddingLeft:25,
         fontSize:19,
         color:"red",
+        fontWeight:"700"
+    },
+    ContainerL:{
+        padding:20,
+        flex:1,
+        paddingLeft:30,
+        paddingRight:30,
+        position:"absolute",
+        top:0,
+        left:-500,
+        height:610,
+        backgroundColor:"#DABCA8"
+    },
+    ContainerA:{
+        padding:20,
+        flex:1,
+        paddingLeft:30,
+        paddingRight:30,
+        position:"absolute",
+        top:0,
+        left:0,
+        height:610,
+        backgroundColor:"#DABCA8"
+    },
+    contnn:{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+        flex:1,
+        backgroundColor:"#DABCA8"
     },
     Container:{
         padding:20,
@@ -200,7 +260,7 @@ const styles=StyleSheet.create({
     btn:{
         padding:20,
         backgroundColor:"#7EBBCF",
-        width:200,
+        width:350,
         borderRadius:50,
         display:'flex',
         alignItems:'center',
@@ -209,7 +269,7 @@ const styles=StyleSheet.create({
     btnText:{
         color:"#222",
         fontSize:20,
-        fontWeight:"700"
+        fontWeight:"700",
     },
     cont:{
         marginTop:10,
