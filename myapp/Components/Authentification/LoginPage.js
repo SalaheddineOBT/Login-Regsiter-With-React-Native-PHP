@@ -2,11 +2,16 @@ import React,{useState} from 'react';
 import { StyleSheet, Image, Animated,ScrollView,
   Text, TextInput, View, Pressable,
   Alert, TouchableWithoutFeedback,
-  Keyboard } from 'react-native';
+  TouchableOpacity, Keyboard } from 'react-native';
 import { sha256 } from 'react-native-sha256';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { GlobaleStyles } from '../../Styles/GlobaleStyle';
+import { styles } from '../../Styles/GlobaleStyle';
+import axios from 'axios';
+
+const Axios=axios.create({
+    baseURL:"http://localhost/API%20Authentification%20with%20PHP/Operations/Athentification/"
+});
 
 const LoginPage=({navigation})=>{
 
@@ -16,8 +21,6 @@ const LoginPage=({navigation})=>{
         // Alert.alert("OOOPS !","Clickable .....",[
         //     {text:"Yes",onPress:()=>console.log("alert closed !")}
         // ]);
-
-
     };
 
     const SignIn=()=>{
@@ -32,14 +35,12 @@ const LoginPage=({navigation})=>{
     }
 
     return(
-
         <TouchableWithoutFeedback onPress={()=>{ Keyboard.dismiss() }}>
             <View style={styles.contnn}>
                 <Register SignUp={SignUp} logact={logact} />
                 <Login SignIn={SignIn} logact={logact} islog={isLog} />
             </View>
         </TouchableWithoutFeedback>
-        
     );
 };
 
@@ -54,36 +55,47 @@ const Register=({SignUp,logact})=>{
     const [email,setEmail]=useState("");
     const [username,setUsername]=useState("");
     const [Confirm,setConfirm]=useState("");
+    const [passHash,setHach]=useState("");
 
     const [error,setError]=useState({});
+    const [mmmm,setmmmm]=useState([]);
 
-    const Regsiter=()=>{
+    const RegU=async()=>{
+        const regg=await fetch("http://localhost/API%20Authentification%20with%20PHP/Operations/Athentification/Register.php",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
+        .then(res=>{
+            return res.json();
+        }).then(data=>{
+            console.log(data);
+        }).catch(err=>{
+            console.log('There has been a problem with your fetch operation: ' + err.message);
+
+        });
+        return regg;
+    }
+
+    const Regsiter= async()=>{
+        fetch("https://jsonplaceholder.typicode.com/users")
+        .then(res=>{
+            return res.json();
+        }).then(data=>{
+            console.log(data);
+        }).catch(err=>{
+            console.log('There has been a problem with your fetch operation: ' + err.message);
+
+        });
+
         if(password && email && password && Confirm){
             if(password != Confirm){
                 setError({confirme:"Confirme Password Is Incorrect !"});
             }else{
-                // await fetch("http://localhost/API%20Authentification%20with%20PHP/Operations/Athentification/Register.php",{
-                //     method:"POST",
-                //     headers:{
-                //         Accept: 'application/json',
-                //         'Content-Type': 'application/json'
-                //     },
-                //     body:JSON.stringify({
-                //         username:username,
-                //         password:password
-                //     })
-                // }).then(res=>{
-                //     return res.json();
-                // }).then(data=>{
-
-                // }).catch(e=>{
-                //     console.log(e);
-                // });
-
-                sha256("Test").then( (hash) => {
-                    setUsername(hash);
+                sha256(Confirm).then( (hash) => {
+                    setHach(hash);
                 });
-
                 setError({confirme:null});
             }
         }
@@ -93,16 +105,22 @@ const Register=({SignUp,logact})=>{
         <View style={styles.Container}>
             <Text style={styles.title}>Register</Text>
 
+            {/* <TouchableOpacity style={styles.dv}>
+                <View style={styles.divimg}>
+                    <Image style={styles.img} source={require("./../../Images/User.png")} />
+                </View>
+            </TouchableOpacity> */}
+
             <View style={styles.box}>
                 <TextInput style={styles.inputs} value={username} onChangeText={(v)=>{
                     setUsername(v);
                     if(v==""){
-                        setfoc1(false)
+                        setfoc1(false);
                     }else{
-                        setfoc1(true)
+                        setfoc1(true);
                     }
                 }} />
-                <Text style={styles.errors}>{username}</Text>
+                <Text style={styles.errors}>{}</Text>
                 <View pointerEvents='none' style={foc1 ? styles.diveActivelbl : styles.divlabl}>
                     <Text style={styles.labl}>User Name *</Text>
                 </View>
@@ -112,9 +130,9 @@ const Register=({SignUp,logact})=>{
                 <TextInput style={styles.inputs} value={email} onChangeText={(v)=>{
                     setEmail(v);
                     if(v==""){
-                        setfoc2(false)
+                        setfoc2(false);
                     }else{
-                        setfoc2(true)
+                        setfoc2(true);
                     }
                 }} />
                 <Text style={styles.errors}>{}</Text>
@@ -127,9 +145,9 @@ const Register=({SignUp,logact})=>{
                 <TextInput style={styles.inputs} value={password} secureTextEntry onChangeText={(v)=>{
                     setPassword(v);
                     if(v==""){
-                        setfoc3(false)
+                        setfoc3(false);
                     }else{
-                        setfoc3(true)
+                        setfoc3(true);
                     }
                 }} />
                 <Text style={styles.errors}>{}</Text>
@@ -142,9 +160,9 @@ const Register=({SignUp,logact})=>{
                 <TextInput style={styles.inputs} value={Confirm} secureTextEntry onChangeText={(v)=>{
                     setConfirm(v);
                     if(v==""){
-                        setfoc4(false)
+                        setfoc4(false);
                     }else{
-                        setfoc4(true)
+                        setfoc4(true);
                     }
                 }} />
                 <Text style={styles.errors}>{error.confirme ? error.confirme : null}</Text>
@@ -184,9 +202,9 @@ const Login=({SignIn,logact,islog})=>{
                 <TextInput style={styles.inputs} onChangeText={(v)=>{
                     setEmail(v);
                     if(v==""){
-                        setfoc1(false)
+                        setfoc1(false);
                     }else{
-                        setfoc1(true)
+                        setfoc1(true);
                     }
                 }} />
                 <Text style={styles.errors}>{error.email}</Text>
@@ -199,9 +217,9 @@ const Login=({SignIn,logact,islog})=>{
                 <TextInput style={styles.inputs} secureTextEntry onChangeText={(v)=>{
                     setPassword(v);
                     if(v==""){
-                        setfoc2(false)
+                        setfoc2(false);
                     }else{
-                        setfoc2(true)
+                        setfoc2(true);
                     }
                 }} />
                 <Text style={styles.errors}>{error.password}</Text>
@@ -223,111 +241,5 @@ const Login=({SignIn,logact,islog})=>{
         </View>
     );
 };
-
-const styles=StyleSheet.create({
-    title:{
-        fontSize:40,
-        fontWeight:"800",
-        textAlign:"center",
-        marginBottom:40,
-        fontFamily:"Overpass-MediumItalic"
-    },
-    divlabl:{
-        position:"absolute",
-        marginBottom:9,
-        paddingLeft:65,
-        top:23,
-        opacity:1,
-    },
-    diveActivelbl:{
-        position:"absolute",
-        marginBottom:9,
-        paddingLeft:20,
-        top:23,
-        opacity:0
-    },
-    labl:{
-        fontSize:20,
-        fontWeight:"700",
-        color:"#000",
-    },
-    inputs:{
-        borderWidth:2,
-        fontSize:22,
-        padding:11,
-        borderRadius:30,
-        fontWeight:"500",
-        paddingLeft:65,
-        marginBottom:5,
-        marginTop:10,
-    },
-    errors:{
-        marginBottom:4,
-        paddingLeft:25,
-        fontSize:19,
-        color:"red",
-        fontWeight:"700"
-    },
-    ContainerL:{
-        padding:20,
-        flex:1,
-        position:"absolute",
-        top:0,
-        left:-500,
-        height:610,
-        backgroundColor:"#DABCA8"
-    },
-    ContainerA:{
-        padding:20,
-        flex:1,
-        position:"absolute",
-        top:0,
-        left:0,
-        height:670,
-        backgroundColor:"#DABCA8"
-    },
-    contnn:{
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
-        flex:1,
-        backgroundColor:"#DABCA8"
-    },
-    Container:{
-        padding:20,
-        paddingLeft:30,
-        paddingRight:30,
-    },
-    box:{
-        position:"relative",
-        width:350
-    },
-    imgs: { 
-        width: 40,
-        height: 40,
-        position:"absolute",
-        top:17.5,left:15,
-    },
-    btn:{
-        padding:10,
-        backgroundColor:"#7EBBCF",
-        width:250,
-        borderRadius:50,
-        display:'flex',
-        alignItems:'center',
-        justifyContent:'center',
-    },
-    btnText:{
-        color:"#222",
-        fontSize:20,
-        fontWeight:"700",
-    },
-    cont:{
-        marginTop:10,
-        display:'flex',
-        alignItems:'center',
-        justifyContent:'center',
-    }
-});
 
 export default LoginPage;
