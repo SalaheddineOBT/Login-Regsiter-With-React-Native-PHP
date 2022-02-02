@@ -10,23 +10,14 @@ import { styles } from '../../Styles/GlobaleStyle';
 import axios from 'axios';
 
 const Axios=axios.create({
-    baseURL:"http://localhost/API%20Authentification%20with%20PHP/Operations/Athentification/"
+    baseURL:"http://172.16.1.47/API%20Authentification%20with%20PHP/Operations/Athentification/"
 });
 
 const LoginPage=({navigation})=>{
 
     const [isLog,setIslog]=useState(true);
 
-    const SignUp=($username,$email,$password,$photo)=>{
-        // Alert.alert("OOOPS !","Clickable .....",[
-        //     {text:"Yes",onPress:()=>console.log("alert closed !")}
-        // ]);
-    };
-
     const SignIn=()=>{
-        // Alert.alert("OOOPS !","Clickable ....",[
-        //     {text:"Yes",onPress:()=>console.log("alert closed !")}
-        // ]);
         navigation.push('Home');
     };
 
@@ -37,148 +28,116 @@ const LoginPage=({navigation})=>{
     return(
         <TouchableWithoutFeedback onPress={()=>{ Keyboard.dismiss() }}>
             <View style={styles.contnn}>
-                <Register SignUp={SignUp} logact={logact} />
+                <Register logact={logact} />
                 <Login SignIn={SignIn} logact={logact} islog={isLog} />
             </View>
         </TouchableWithoutFeedback>
     );
 };
 
-const Register=({SignUp,logact})=>{
+const Register=({logact})=>{
 
     const [foc1,setfoc1]=useState(false);
     const [foc2,setfoc2]=useState(false);
     const [foc3,setfoc3]=useState(false);
     const [foc4,setfoc4]=useState(false);
 
-    const [password,setPassword]=useState("");
-    const [email,setEmail]=useState("");
-    const [username,setUsername]=useState("");
-    const [Confirm,setConfirm]=useState("");
+    const [pass,setPassword]=useState("");
+    const [eml,setEmail]=useState("");
+    const [usnam,setUsername]=useState("");
     const [passHash,setHach]=useState("");
 
-    const [error,setError]=useState({});
-    const [mmmm,setmmmm]=useState([]);
-
-    const RegU=async()=>{
-        const regg=await fetch("http://localhost/API%20Authentification%20with%20PHP/Operations/Athentification/Register.php",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            }
-        })
-        .then(res=>{
-            return res.json();
-        }).then(data=>{
-            console.log(data);
-        }).catch(err=>{
-            console.log('There has been a problem with your fetch operation: ' + err.message);
-
-        });
-        return regg;
-    }
-
-    const Regsiter= async()=>{
-        fetch("https://jsonplaceholder.typicode.com/users")
-        .then(res=>{
-            return res.json();
-        }).then(data=>{
-            console.log(data);
-        }).catch(err=>{
-            console.log('There has been a problem with your fetch operation: ' + err.message);
-
-        });
-
-        if(password && email && password && Confirm){
-            if(password != Confirm){
-                setError({confirme:"Confirme Password Is Incorrect !"});
+    const Regsiter=async ()=>{
+        
+        if(pass && eml && usnam && Confirm){
+            if(pass.length<8){
+                alert("Password Must Be At Least 8 char !");
             }else{
-                sha256(Confirm).then( (hash) => {
-                    setHach(hash);
-                });
-                setError({confirme:null});
+                if(pass != Confirm){
+                    alert("Confirme Password Is Incorrect !");
+                }else{
+                    
+                    sha256(pass).then( (hash) => {
+                        setHach(hash);
+                    });
+                    setError({confirme:null});
+                    await Axios.post("Register.php",{
+                        username:usnam,
+                        password:passHash,
+                        email:eml
+                    }).then(res=>{
+                        if(res.data.success){
+                            alert(res.data.message);
+                            setPassword("");setUsername("");
+                            setEmail("");setHach("");
+                        }else {
+                            alert(res.data.message);
+                        }
+                    }).catch(e=>{
+                        console.log(e);
+                    });
+                }
             }
+        }else{
+            alert("Remplire Tous Les Champs !");
         }
     }
 
     return(
         <View style={styles.Container}>
-            <Text style={styles.title}>Register</Text>
+            <Image source={require("./../../Images/bg.png")} style={styles.imh} />
+            <View style={styles.cnn}>
+                <Text style={styles.title}>Register</Text>
 
-            {/* <TouchableOpacity style={styles.dv}>
-                <View style={styles.divimg}>
-                    <Image style={styles.img} source={require("./../../Images/User.png")} />
+                <View style={styles.box}>
+                    <TextInput style={styles.inputs} value={usnam} onChangeText={(v)=>{
+                        setUsername(v);
+                        if(v==""){
+                            setfoc1(false);
+                        }else{
+                            setfoc1(true);
+                        }
+                    }} />
+                    <View pointerEvents='none' style={foc1 ? styles.diveActivelbl : styles.divlabl}>
+                        <Text style={styles.labl}>User Name *</Text>
+                    </View>
+                    <Image source={require('./../../Images/User.png')} style={styles.imgs} />
                 </View>
-            </TouchableOpacity> */}
-
-            <View style={styles.box}>
-                <TextInput style={styles.inputs} value={username} onChangeText={(v)=>{
-                    setUsername(v);
-                    if(v==""){
-                        setfoc1(false);
-                    }else{
-                        setfoc1(true);
-                    }
-                }} />
-                <Text style={styles.errors}>{}</Text>
-                <View pointerEvents='none' style={foc1 ? styles.diveActivelbl : styles.divlabl}>
-                    <Text style={styles.labl}>User Name *</Text>
+                <View style={styles.box}>
+                    <TextInput style={styles.inputs} value={eml} onChangeText={(v)=>{
+                        setEmail(v);
+                        if(v==""){
+                            setfoc2(false);
+                        }else{
+                            setfoc2(true);
+                        }
+                    }} />
+                    <View pointerEvents='none' style={foc2 ? styles.diveActivelbl : styles.divlabl}>
+                        <Text style={styles.labl}>Email *</Text>
+                    </View>
+                    <Image source={require('./../../Images/Email.png')} style={styles.imgs} />
                 </View>
-                <Image source={require('./../../Images/User.png')} style={styles.imgs} />
-            </View>
-            <View style={styles.box}>
-                <TextInput style={styles.inputs} value={email} onChangeText={(v)=>{
-                    setEmail(v);
-                    if(v==""){
-                        setfoc2(false);
-                    }else{
-                        setfoc2(true);
-                    }
-                }} />
-                <Text style={styles.errors}>{}</Text>
-                <View pointerEvents='none' style={foc2 ? styles.diveActivelbl : styles.divlabl}>
-                    <Text style={styles.labl}>Email *</Text>
+                <View style={styles.box}>
+                    <TextInput style={styles.inputs} value={pass} secureTextEntry onChangeText={(v)=>{
+                        setPassword(v);
+                        if(v==""){
+                            setfoc3(false);
+                        }else{
+                            setfoc3(true);
+                        }
+                    }} />
+                    <View pointerEvents='none' style={foc3 ? styles.diveActivelbl : styles.divlabl}>
+                        <Text style={styles.labl}>Password *</Text>
+                    </View>
+                    <Image source={require('./../../Images/Pass.png')} style={styles.imgs} />
                 </View>
-                <Image source={require('./../../Images/Email.png')} style={styles.imgs} />
-            </View>
-            <View style={styles.box}>
-                <TextInput style={styles.inputs} value={password} secureTextEntry onChangeText={(v)=>{
-                    setPassword(v);
-                    if(v==""){
-                        setfoc3(false);
-                    }else{
-                        setfoc3(true);
-                    }
-                }} />
-                <Text style={styles.errors}>{}</Text>
-                <View pointerEvents='none' style={foc3 ? styles.diveActivelbl : styles.divlabl}>
-                    <Text style={styles.labl}>Password *</Text>
+                <View style={styles.cont}>
+                    <Pressable style={styles.btn} onPress={()=>Regsiter()}>
+                        <Text style={styles.btnText}>Sign Up</Text>
+                    </Pressable>
                 </View>
-                <Image source={require('./../../Images/Pass.png')} style={styles.imgs} />
-            </View>
-            <View style={styles.box}>
-                <TextInput style={styles.inputs} value={Confirm} secureTextEntry onChangeText={(v)=>{
-                    setConfirm(v);
-                    if(v==""){
-                        setfoc4(false);
-                    }else{
-                        setfoc4(true);
-                    }
-                }} />
-                <Text style={styles.errors}>{error.confirme ? error.confirme : null}</Text>
-                <View pointerEvents='none' style={foc4 ? styles.diveActivelbl : styles.divlabl}>
-                    <Text style={styles.labl}>Confirme Password *</Text>
-                </View>
-                <Image source={require('./../../Images/Pass.png')} style={styles.imgs} />
-            </View>
-            <View style={styles.cont}>
-                <Pressable style={styles.btn} onPress={()=>Regsiter()}>
-                    <Text style={styles.btnText}>Sign Up</Text>
-                </Pressable>
-            </View>
-            <View style={styles.cont}>
-                <Pressable style={styles.btn} onPress={()=>logact(true)}>
-                    <Text style={styles.btnText}>Sign In</Text>
+                <Pressable style={styles.bb} onPress={()=>logact(true)}>
+                    <Text style={styles.lik}> &lt;- New User -&gt; </Text>
                 </Pressable>
             </View>
         </View>

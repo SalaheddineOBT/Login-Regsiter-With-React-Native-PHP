@@ -80,32 +80,45 @@ export const styles=StyleSheet.create({
         top:0,
         left:-500,
         height:700,
-        backgroundColor:"#0C3B2E"
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        backgroundColor:"#ECF0F3"
     },
     ContainerA:{
         padding:20,
         flex:1,
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
         position:"absolute",
         top:0,
         left:0,
         height:760,
-        backgroundColor:"#0C3B2E"
+        backgroundColor:"#ECF0F3"
     },
     contnn:{
         display:"flex",
         alignItems:"center",
         justifyContent:"center",
         flex:1,
-        backgroundColor:"#0C3B2E"
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        backgroundColor:"#ECF0F3"
     },
     Container:{
         padding:20,
         paddingLeft:30,
         paddingRight:30,
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
     },
     box:{
         position:"relative",
-        width:350
+        width:350,
+        marginBottom:10
     },
     imgs: { 
         width: 40,
@@ -115,7 +128,7 @@ export const styles=StyleSheet.create({
     },
     btn:{
         padding:10,
-        backgroundColor:"#FFB100",
+        backgroundColor:"#fff",
         width:250,
         borderRadius:50,
         display:'flex',
@@ -123,7 +136,7 @@ export const styles=StyleSheet.create({
         justifyContent:'center',
     },
     btnText:{
-        color:"#FFF",
+        color:"#444",
         fontSize:20,
         fontWeight:"700",
     },
@@ -132,5 +145,26 @@ export const styles=StyleSheet.create({
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
+    },
+    imh:{
+        width:400,
+        marginTop:-95
+    },
+    cnn:{
+        backgroundColor:"#124269",
+        borderTopLeftRadius:100,
+        borderTopRightRadius:100,
+        padding:40,
+    },
+    lik:{
+        color:"#F4E9D8",
+        fontSize:20,
+        fontWeight:"700"
+    },
+    bb:{
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop:20
     }
 });
