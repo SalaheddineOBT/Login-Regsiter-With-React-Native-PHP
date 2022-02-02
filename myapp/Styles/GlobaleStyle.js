@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 
 export const styles=StyleSheet.create({
     Cont:{
-        backgroundColor:"#000",
-        color:"#eee",
+        backgroundColor:"#ECF0F3",
+        color:"#ECF0F3",
     },
     divimg:{
         display:"flex",
@@ -31,8 +31,8 @@ export const styles=StyleSheet.create({
         fontSize:40,
         fontWeight:"800",
         textAlign:"center",
-        marginBottom:40,
-        color:"#eee",
+        marginBottom:30,
+        color:"#005377",
         fontFamily:"Overpass-MediumItalic"
     },
     divlabl:{
@@ -52,16 +52,16 @@ export const styles=StyleSheet.create({
     labl:{
         fontSize:20,
         fontWeight:"700",
-        color:"#fff",
+        color:"#627696",
     },
     inputs:{
-        borderWidth:2,
+        borderWidth:2.5,
         fontSize:22,
         padding:11,
         borderRadius:30,
         fontWeight:"500",
-        borderColor:"#fff",
-        color:"#fff",
+        borderColor:"#124269",
+        color:"#124269",
         paddingLeft:65,
         marginBottom:5,
         marginTop:10,
@@ -73,28 +73,16 @@ export const styles=StyleSheet.create({
         color:"red",
         fontWeight:"700"
     },
-    ContainerL:{
-        padding:20,
-        flex:1,
-        position:"absolute",
-        top:0,
-        left:-500,
-        height:700,
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        backgroundColor:"#ECF0F3"
-    },
     ContainerA:{
-        padding:20,
         flex:1,
         display:"flex",
         justifyContent:"center",
         alignItems:"center",
         position:"absolute",
-        top:0,
+        bottom:0,
+        width:395,
         left:0,
-        height:760,
+        height:520,
         backgroundColor:"#ECF0F3"
     },
     contnn:{
@@ -112,8 +100,10 @@ export const styles=StyleSheet.create({
         paddingLeft:30,
         paddingRight:30,
         display:"flex",
+        height:540,
         justifyContent:"center",
         alignItems:"center",
+        backgroundColor:"#ECF0F3"
     },
     box:{
         position:"relative",
@@ -128,7 +118,7 @@ export const styles=StyleSheet.create({
     },
     btn:{
         padding:10,
-        backgroundColor:"#fff",
+        backgroundColor:"#506588",
         width:250,
         borderRadius:50,
         display:'flex',
@@ -136,7 +126,7 @@ export const styles=StyleSheet.create({
         justifyContent:'center',
     },
     btnText:{
-        color:"#444",
+        color:"#ECF0F3",
         fontSize:20,
         fontWeight:"700",
     },
@@ -148,16 +138,13 @@ export const styles=StyleSheet.create({
     },
     imh:{
         width:400,
-        marginTop:-95
+        // marginBottom:20
     },
     cnn:{
-        backgroundColor:"#124269",
-        borderTopLeftRadius:100,
-        borderTopRightRadius:100,
-        padding:40,
+        backgroundColor:"#ECF0F3"
     },
     lik:{
-        color:"#F4E9D8",
+        color:"#1572A1",
         fontSize:20,
         fontWeight:"700"
     },
@@ -166,5 +153,12 @@ export const styles=StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         marginTop:20
+    },
+    wave:{
+        marginTop:-100
+    },
+    spca:{
+        marginTop:150,
+        fontSize:1
     }
 });
