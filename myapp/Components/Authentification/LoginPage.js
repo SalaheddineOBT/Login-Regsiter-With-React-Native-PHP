@@ -7,20 +7,20 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import axios from 'axios';
 import { styles } from './../../Styles/GlobaleStyle';
 const Axios=axios.create({
-    baseURL:"http://172.16.1.47/API%20Authentification%20with%20PHP/Operations/Athentification/"
+    baseURL:"http://172.16.1.47/API%20Authentification%20with%20PHP/Operations/Athentification/",
 });
 const LoginPage=({navigation})=>{
     const value=useState(new Animated.ValueXY({
         x:0,y:760
     }))[0];
-    function move(){
+    const move=()=>{
         Animated.timing(value,{
             toValue:{x:0,y:760},
             duration:1000,
             useNativeDriver:false
         }).start()
     }
-    function back(){
+    const back=()=>{
         Animated.timing(value,{
             toValue:{x:0,y:200},
             duration:1000,
@@ -146,10 +146,7 @@ const Login=({value,move})=>{
     const [foc2,setfoc2]=useState(false);
     const [password,setPassword]=useState("");
     const [email,setEmail]=useState("");
-    //Login Methode :
-    const Loign=()=>{
-
-    }
+   
     return(
         <Animated.View style={[styles.ContainerA,value.getLayout()]}>
             
