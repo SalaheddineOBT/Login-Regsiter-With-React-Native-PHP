@@ -79,7 +79,8 @@ export const styles=StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         position:"absolute",
-        bottom:0,
+        top:172,
+        paddingTop:50,
         width:395,
         left:0,
         height:520,
@@ -138,10 +139,6 @@ export const styles=StyleSheet.create({
     },
     imh:{
         width:400,
-        // marginBottom:20
-    },
-    cnn:{
-        backgroundColor:"#ECF0F3"
     },
     lik:{
         color:"#1572A1",
