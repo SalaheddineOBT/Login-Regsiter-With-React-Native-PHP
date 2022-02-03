@@ -1,10 +1,13 @@
 import React from 'react';
-import {Text,View} from 'react-native';
+import {Button, Text,View} from 'react-native';
 
 const Home=({navigation})=>{
+
+     
   return (
     <View>
-        <Text>Hello</Text>
+      <Text>Hello</Text>
+      <Button title='Logout' />
     </View>
   )
 };

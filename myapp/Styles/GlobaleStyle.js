@@ -81,7 +81,7 @@ export const styles=StyleSheet.create({
         position:"absolute",
         top:172,
         paddingTop:50,
-        width:395,
+        width:405,
         left:0,
         height:520,
         backgroundColor:"#ECF0F3"
@@ -111,7 +111,7 @@ export const styles=StyleSheet.create({
         width:350,
         marginBottom:10
     },
-    imgs: { 
+    imgs: {
         width: 40,
         height: 40,
         position:"absolute",
@@ -157,5 +157,12 @@ export const styles=StyleSheet.create({
     spca:{
         marginTop:150,
         fontSize:1
+    },
+    contttt:{
+        flex:1,
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        backgroundColor:"#ECF0F3",
     }
 });
