@@ -112,10 +112,10 @@ export const styles=StyleSheet.create({
         marginBottom:10
     },
     imgs: {
-        width: 40,
-        height: 40,
+        width: 35,
+        height: 35,
         position:"absolute",
-        top:17.5,left:15,
+        top:19,left:15,
     },
     btn:{
         padding:10,
@@ -164,5 +164,69 @@ export const styles=StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         backgroundColor:"#ECF0F3",
+    },
+    home:{
+        flex:1,
+        padding:20,
+        width:390,
+        backgroundColor:"#ECF0F3",
+        display:"flex",
+        alignItems:"center"
+    },
+    imgdv:{
+        padding:25,
+        borderRadius:80,
+        borderWidth:3,
+        display:"flex",
+        borderColor:"#0B4866",
+        marginBottom:20,
+        alignContent:"center",
+        alignItems:"center",
+        justifyContent:"center",
+    },
+    imghome:{
+        width:40,
+        height:40,
+        
+    },
+    btnLogout:{
+        padding:10,
+        backgroundColor:"#0B4866",
+        width:120,
+        display:"flex",
+        paddingBottom:12,
+        alignItems:"center",
+        justifyContent:"center",
+        borderRadius:30
+    },
+    txt:{
+        color:"#fff",
+        fontSize:20,
+        fontWeight:"bold",
+    },
+    txtus:{
+        fontSize:20,
+        fontWeight:"700",
+        marginBottom:20,
+        color:"#0B4866"
+    },
+    containerr:{
+        width:390,
+        borderBottomWidth:2,
+        borderBottomColor:"#0B4866",
+        display:"flex",
+        padding:10,
+        paddingBottom:25,
+        justifyContent:"space-around",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems:"center"
+    },
+    inf:{
+        padding:10,
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"flex-start",
+        width:200
     }
 });

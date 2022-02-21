@@ -6,9 +6,11 @@ import { styles } from './Styles/GlobaleStyle';
 
 const App = () => {
   const [username,setUsername]=useState("");
+  const [id,setid]=useState("");
 
-  const login=(tok)=>{
+  const login=(tok,d)=>{
     setUsername(tok);
+    setid(d);
   }
 
   const logout=()=>{
@@ -18,7 +20,7 @@ const App = () => {
   return (
       <View style={styles.contttt}>
         {username != "" ? (
-          <Home username={username} logout={logout} />
+          <Home username={username} id={id} logout={logout} />
         ):(
           <LoginPage login={login} />
         )}

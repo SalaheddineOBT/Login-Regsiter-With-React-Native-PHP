@@ -14,8 +14,8 @@ const LoginPage=({login})=>{
         x:0,y:760
     }))[0];
 
-    const isLog=()=>{
-        
+    const isLog=(b)=>{
+        login(b)
     }
 
     const move=()=>{
@@ -38,7 +38,7 @@ const LoginPage=({login})=>{
         <TouchableWithoutFeedback onPress={()=>{ Keyboard.dismiss()}} accessible={false}>
             <View>
                 <Image source={require("./../../Images/bg.png")} style={styles.imh} />
-                <Login back={back} login={login} />
+                <Login back={back} login={isLog} />
                 <Register value={value} move={move} />
             </View>
         </TouchableWithoutFeedback>
@@ -188,6 +188,7 @@ const Login=({back,login})=>{
     const [pass,setPassword]=useState("");
     const [eml,setEmail]=useState("");
     const [passHash,setHach]=useState("");
+    const [tokenn,setTokenn]=useState("");
 
     const Raze=()=>{
         setPassword("");setEmail("");
@@ -201,7 +202,6 @@ const Login=({back,login})=>{
             if(pass.length < 8){
                 alert("Password Must Be At Least 8 Chars !");
             }else{
-
                 sha256(pass).then( (hash) => {
                     setHach(hash);
                 });
@@ -210,27 +210,34 @@ const Login=({back,login})=>{
                     email:eml
                 }).then(res=>{
                     if(res.data.success){
-                        alert(res.data.message);
+                        // alert(res.data.message);
                         setfoc1(false);setfoc2(false);
                         setEmail("");setPassword("");
                         setHach("");
-                        homm(res.data.token);
+                        login("salaheddine Obt",res.data.success);
+                        // setTokenn(res.data.token);
+                        // console.log(res.data.token);
+                        // const r=home(res.data.token);
+                        // console.log(r.data);
                     }else {
                         alert(res.data.message);
                     }
                 }).catch(e=>{
                     console.log(e);
                 });
-
+                // console.log(tokenn)
+                // const r=await home(tokenn);
+                // console.log(r);
             }
         }else{
             alert("Remplire Tous Les Champs SVP !");
         }
-    }
+    };
 
-    const homm=async (token)=>{
-        
-        
+    const home=async(t)=>{
+        Axios.defaults.headers.common['Authorization'] = 'Bearer '+t;
+        const p=await Axios.get("Home.php");
+        return p;
     }
    
     return(
